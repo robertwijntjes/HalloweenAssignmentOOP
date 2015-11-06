@@ -9,6 +9,7 @@ ArrayList <String> names1 = new ArrayList <String>();
 
 float sum1,sum2,sum3,sum4,sum5,tsum;
 float avg1,avg2,avg3,avg4,avg5,t_avg;
+float x,y;
 
 int mode = 0;
 
@@ -23,7 +24,7 @@ void setup()
   radiusCal();
   radiusCal1();
   names();
-  prntNames();
+  
 }
 
 void load()
@@ -118,7 +119,7 @@ void pieChart()
    float end = 0;
    float per = 0;
    float centX = (float) width / 2;
-   float centY = (float) height / 2;
+   float centY = ((float) height / 2) + 100;
    
   for( int i = 0; i < avgData.size() ; i++ )
   {
@@ -144,7 +145,7 @@ void pieChart()
       }
       
       end += radiusPI.get(i);
-      println(end);
+
       if(key == '1')
       {
         arc(centX,centY,250,250,start,end);
@@ -172,20 +173,65 @@ void menu()
 void names()
 {
   names1.add("Action");
-  names1.add("Adventure");
+  names1.add("Simulation");
   names1.add("Role-Playing");
   names1.add("Strategy");
-  names1.add("Simulation");
+  names1.add("Adventure");
 }
 
-void prntNames()
+void piChartKey()
 {
+  float positionX,positionY;
+  positionX = width/2 + 300;
+  positionY = (height/2) + 100;
+  
+  for(int i = 0; i < names1.size();i++)
+  {
+    fill(255);
+    textSize(19);
+    text(names1.get(i),positionX,positionY);
+    positionY += 19;
+  }
+}
 
+void drawKeyBox()
+{
+  float boxX,boxY;
+  boxX = width/2 + 275;
+  boxY = (height/2) + 90;
+  
+  for(int i = 0 ; i < names1.size() ; i++ )
+  {
+      if(i == 0)
+      {
+        fill(0,225,255);
+      }
+      if(i == 1)
+      {
+        fill(178,102,255);
+      }
+      if(i == 2)
+      {
+        fill(255,128,0);
+      }
+      if(i == 3)
+      {
+        fill(0,204,0);
+      }
+      if(i == 4)
+      {
+        fill(255,102,102);
+      }
+      rect(boxX,boxY,10,10);
+      boxY += 20;
+  }
 }
 
 void callall()
 {
   pieChart();
+  piChartKey();
+  drawKeyBox();
 }
 
 void draw()
@@ -221,5 +267,4 @@ void keyPressed()
   {
     mode = key - '0';
   }
-  println(mode);
 }
