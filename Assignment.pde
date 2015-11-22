@@ -1,81 +1,74 @@
 import java.util.*;
 
-ArrayList <Float> data = new ArrayList <Float>();
+ArrayList<gameRatings> gameRate = new ArrayList<gameRatings>();
+ArrayList<Float> data = new ArrayList<Float>();
 ArrayList <Float> avgData = new ArrayList <Float>();
 ArrayList <Float> radiusPI = new ArrayList <Float>();
 ArrayList <Float> stair = new ArrayList <Float>();
 ArrayList <String> names1 = new ArrayList <String>();
 
 
-float sum1,sum2,sum3,sum4,sum5,tsum;
+float sum1,sum2,sum3,sum4,sum5;
 float avg1,avg2,avg3,avg4,avg5,t_avg;
 float x,y;
-
 int mode = 0;
 
 void setup()
 {
-  background(0);
   size(1000,1000);
   
-  load();
-  avgData();
+  loadData();
+  getAvg();
   sortData();
   radiusCal();
   radiusCal1();
   names();
-  
 }
 
-void load()
+void loadData()
 {
-  String[] line = loadStrings("gamerate.csv");
+  String[] lines = loadStrings("gamerate.csv");
   
-  for( String s : line )  
+  for(int i = 0; i < lines.length ; i++)
   {
-    float f = Float.parseFloat(s);
-    data.add(f);
-  }
+    gameRatings gamerate = new gameRatings(lines[i]);
+    gameRate.add(gamerate);
+  }  
 }
-void avgData()
-{ 
 
-
-  for ( int i = 0 ; i < data.size() ; i++)
-  { 
-
+void getAvg()
+{
+    for(int i = 0 ; i < gameRate.size() ; i++)
+  {
     if( i < 10)
     {
-      sum1 += data.get(i);
+      sum1 += gameRate.get(i).ratings;
     }
     //first genre
     
     if( i > 9 && i < 20)
     {
-      sum2 += data.get(i);
+      sum2 += gameRate.get(i).ratings;
     }
     //second genre
     
     if( i > 19 && i < 30)
     {
-      sum3 += data.get(i);
+      sum3 += gameRate.get(i).ratings;
     }
     //third genre
     
     if( i > 29 && i < 40)
     {
-      sum4 += data.get(i);
+      sum4 += gameRate.get(i).ratings;
     }
     //fourth genre
     
     if( i > 39 && i < 50)
     {
-      sum5 += data.get(i);
-    }
-    //fifth genre
+      sum5 += gameRate.get(i).ratings;
+    }   
   }
-
-
   avg1 = sum1/10;
   avg2 = sum2/10;
   avg3 = sum3/10;
@@ -159,6 +152,7 @@ void pieChart()
 
 }
 
+
 void menu()
 {
   textSize(23);
@@ -177,13 +171,14 @@ void names()
   names1.add("Role-Playing");
   names1.add("Strategy");
   names1.add("Adventure");
+  println(names1);
 }
 
 void piChartKey()
 {
   float positionX,positionY;
   positionX = width/2 + 300;
-  positionY = (height/2) + 100;
+  positionY = (height/2) + 200;
   
   for(int i = 0; i < names1.size();i++)
   {
@@ -198,7 +193,7 @@ void drawKeyBox()
 {
   float boxX,boxY;
   boxX = width/2 + 275;
-  boxY = (height/2) + 90;
+  boxY = (height/2) + 185;
   
   for(int i = 0 ; i < names1.size() ; i++ )
   {
@@ -226,7 +221,6 @@ void drawKeyBox()
       boxY += 20;
   }
 }
-
 void callall()
 {
   pieChart();
@@ -236,11 +230,11 @@ void callall()
 
 void draw()
 {
-  
-  switch (mode)
+    switch (mode)
   {
     case 0:
     {
+      background(0);
       menu();
       break;
     }
@@ -260,7 +254,6 @@ void draw()
     }
   }
 }
-
 void keyPressed()
 {
   if (key >= '0' && key <='9')
