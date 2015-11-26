@@ -160,8 +160,9 @@ void menu()
   text("OOP Assignment S1Y2",width/2-125,100);
   stroke(255);
   line(314,119,width-300,119);
-  text("Press 1: Basic PieChart",width/2-125,200);
-  text("Press 2: Advanced PieChart",width/2-125,250);
+  text("Press 1 and 2: Basic Pi-Chart",width/2-125,200);
+  text("Press 3: Advanced PieChart",width/2-125,250);
+  text("Press 4: Exit Program",width/2-125,300);
 }
 
 void names()
@@ -221,6 +222,37 @@ void drawKeyBox()
       boxY += 20;
   }
 }
+
+void drawLine()
+{ 
+  background(0);
+  float gap = width / (float)gameRate.size();
+  float max = 0.0f;
+  for(gameRatings rate:gameRate)
+  {
+    if(max < rate.ratings)
+    {
+      max = (float)rate.ratings;
+    }
+  }
+  float scaler = height/ (float) max;
+
+  for( int i = 0 ; i < gameRate.size();i++)
+  {
+    float x = i * gap;
+    stroke(gameRate.get(i).colour);
+    fill(gameRate.get(i).colour);
+    rect(x,height,gap,-(gameRate.get(i).ratings * scaler));
+    
+  }
+  
+  
+}
+
+void exitP()
+{
+  exit();
+}
 void callall()
 {
   pieChart();
@@ -238,6 +270,7 @@ void draw()
       menu();
       break;
     }
+    
     case 1:
     {
       background(0);
@@ -245,6 +278,7 @@ void draw()
       callall();
       break;
     }
+    
     case 2:
     {
       background(0);
@@ -252,12 +286,28 @@ void draw()
       callall();
       break;
     }
+    
+    case 3:
+    {
+      background(0);
+      menu();
+      drawLine();
+      break;
+    }
+    
+    case 4:
+    {
+      //exitP();
+    }
+    
   }
 }
 void keyPressed()
 {
+  
   if (key >= '0' && key <='9')
   {
     mode = key - '0';
   }
+  
 }
