@@ -155,6 +155,7 @@ void pieChart()
 
 void menu()
 {
+  strokeWeight(1);
   textSize(23);
   fill(255);
   text("OOP Assignment S1Y2",width/2-125,100);
@@ -223,30 +224,67 @@ void drawKeyBox()
   }
 }
 
-void drawLine()
-{ 
-  background(0);
-  float gap = width / (float)gameRate.size();
+void drawBar()
+{
   float max = 0.0f;
+  float gap = (float) width/gameRate.size();
   for(gameRatings rate:gameRate)
   {
-    if(max < rate.ratings)
+    if( max < rate.ratings)
     {
-      max = (float)rate.ratings;
+      max = rate.ratings;
     }
   }
+  
   float scaler = height/ (float) max;
-
-  for( int i = 0 ; i < gameRate.size();i++)
+  for( int i = 0 ; i < gameRate.size() ; i++ )
   {
-    float x = i * gap;
     stroke(gameRate.get(i).colour);
     fill(gameRate.get(i).colour);
-    rect(x,height,gap,-(gameRate.get(i).ratings * scaler));
-    
+    float x = i * gap;
+    rect(x, height, gap, -(gameRate.get(i).ratings * scaler));
   }
+}
+
+void drawLine()
+{
   
+  float topside = 0.8f;
+  float gap = (width) / ((float)gameRate.size());
+  float max = 0; 
+
+  for(gameRatings rate:gameRate)
+  {
+    if( max < rate.ratings)
+    {
+      max = rate.ratings;
+    }
+  }
+  //FIND THE MAX
   
+  float scaler = height / ((float) max );
+  // SCALE THE TOP
+  
+  for (int i = 1; i < gameRate.size (); i++)
+  {
+    fill(gameRate.get(i).colour);
+    strokeWeight(3);
+    stroke(gameRate.get(i).colour);
+    float x1 = (((i - 1) * gap)*topside + 100);
+    float x2 = ((i * gap)* topside + 100);
+    float y1 = height - ((gameRate.get(i-1).ratings * scaler)* topside -200);
+    float y2 = height - ((gameRate.get(i).ratings * scaler)* topside -200);
+    line(x1, y1, x2, y2);
+    //DRAWS GRAPH    
+    if(mode == 3 && mouseX > 100 && mouseX < width -100 && mouseY > 100 && mouseY < height - 120)
+   {
+     line(mouseX,height - 120,mouseX,400);
+     ellipse(mouseX,y2,10,10);
+   }
+ } 
+  stroke(255);
+  line(100,height-120,100,400);
+  line(100,height -120,width -115,height -120);
 }
 
 void exitP()
@@ -290,17 +328,20 @@ void draw()
     case 3:
     {
       background(0);
-      menu();
       drawLine();
-      break;
+      menu();
+      break;//
     }
-    
+
     case 4:
     {
       //exitP();
+      break;
     }
     
   }
+
+
 }
 void keyPressed()
 {
