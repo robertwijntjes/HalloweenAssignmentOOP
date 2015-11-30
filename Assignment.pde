@@ -1,4 +1,18 @@
+/*
+  Author: Robert Wijntjes
+  Data:30/11/2015
+  Class: DT282/2
+  Code: C14356786
+  Discription: This assignment has the following types of graphs. 
+                1. Pie Chart   
+                2. Stair Pie Chart  
+                3. Plot Graph. 
+                These Graphs are used to illustrate the information in which i collected.This data involves the average ratings of games within a genre.
+*/
+
+
 import java.util.*;
+//Importing a Library
 
 ArrayList<gameRatings> gameRate = new ArrayList<gameRatings>();
 ArrayList<Float> data = new ArrayList<Float>();
@@ -6,12 +20,14 @@ ArrayList <Float> avgData = new ArrayList <Float>();
 ArrayList <Float> radiusPI = new ArrayList <Float>();
 ArrayList <Float> stair = new ArrayList <Float>();
 ArrayList <String> names1 = new ArrayList <String>();
+//Declaring Arraylists
 
 
 float sum1,sum2,sum3,sum4,sum5;
 float avg1,avg2,avg3,avg4,avg5,t_avg;
 float x,y;
 int mode = 0;
+//Declaring a few Global Variables
 
 void setup()
 {
@@ -23,6 +39,7 @@ void setup()
   radiusCal();
   radiusCal1();
   names();
+  //Calling all Default Functions.
 }
 
 void loadData()
@@ -34,6 +51,7 @@ void loadData()
     gameRatings gamerate = new gameRatings(lines[i]);
     gameRate.add(gamerate);
   }  
+  //Loading Data into Arraylist
 }
 
 void getAvg()
@@ -82,11 +100,13 @@ void getAvg()
   avgData.add(avg3);
   avgData.add(avg4);
   avgData.add(avg5);
+  //Getting the average and Totals
 }
 
 void sortData()
 {
   Collections.sort(avgData);
+  //Sorting the Data
 }
 
 void radiusCal()
@@ -96,6 +116,7 @@ void radiusCal()
   {
     radiusPI.add(avgData.get(i)*angle);
   }
+  //Getting the Portions for the Pie chart
 }
 
 void radiusCal1()
@@ -103,6 +124,7 @@ void radiusCal1()
   for( int i = 0 ; i < avgData.size() ; i++ )
   {
     stair.add(avgData.get(i)*avgData.get(i)*avgData.get(i));
+    //Getting the extensions for the pie chart
   }
 }
 
@@ -149,6 +171,7 @@ void pieChart()
       } 
       start += radiusPI.get(i); 
   }
+  //Drawing the pie chart.
 
 }
 
@@ -164,6 +187,7 @@ void menu()
   text("Press 1 and 2: Basic Pi-Chart",width/2-125,200);
   text("Press 3: Advanced PieChart",width/2-125,250);
   text("Press 4: Exit Program",width/2-125,300);
+  //Menu Function
 }
 
 void names()
@@ -174,6 +198,7 @@ void names()
   names1.add("Strategy");
   names1.add("Adventure");
   println(names1);
+  
 }
 
 void piChartKey()
@@ -189,6 +214,7 @@ void piChartKey()
     text(names1.get(i),positionX,positionY);
     positionY += 19;
   }
+  //Key for PieChart Information
 }
 
 void drawKeyBox()
@@ -222,6 +248,7 @@ void drawKeyBox()
       rect(boxX,boxY,10,10);
       boxY += 20;
   }
+  //Drawing the boxes corrosponding colors
 }
 
 void drawBar()
@@ -244,6 +271,7 @@ void drawBar()
     float x = i * gap;
     rect(x, height, gap, -(gameRate.get(i).ratings * scaler));
   }
+  //Drawing the bar chart
 }
 
 void drawLine()
@@ -252,6 +280,7 @@ void drawLine()
   float topside = 0.8f;
   float gap = (width) / ((float)gameRate.size());
   float max = 0; 
+  int switch_t = 1;
 
   for(gameRatings rate:gameRate)
   {
@@ -275,27 +304,36 @@ void drawLine()
     float y1 = height - ((gameRate.get(i-1).ratings * scaler)* topside -200);
     float y2 = height - ((gameRate.get(i).ratings * scaler)* topside -200);
     line(x1, y1, x2, y2);
-    //DRAWS GRAPH    
-    if(mode == 3 && mouseX > 100 && mouseX < width -100 && mouseY > 100 && mouseY < height - 120)
-   {
-     line(mouseX,height - 120,mouseX,400);
-     ellipse(mouseX,y2,10,10);
-   }
+    //DRAWS GRAPH
+    textSize(10);    
+    if(switch_t == 1)
+    {
+      text(gameRate.get(i).category,x1,y2);
+      switch_t--;
+    }
+    else
+    {
+      text(gameRate.get(i).category,x1,y2);
+      switch_t ++;
+    }
  } 
   stroke(255);
-  line(100,height-120,100,400);
-  line(100,height -120,width -115,height -120);
+  line(100,400,100,height-120); //x
+  line(100,height -120,width -115,height -120); //y
+  //Drawing the LinePlot
 }
 
 void exitP()
 {
   exit();
+  //Exit Function
 }
 void callall()
 {
   pieChart();
   piChartKey();
   drawKeyBox();
+  //Special call for ordering purposes
 }
 
 void draw()
@@ -340,7 +378,7 @@ void draw()
     }
     
   }
-
+  //Interface
 
 }
 void keyPressed()
@@ -350,5 +388,5 @@ void keyPressed()
   {
     mode = key - '0';
   }
-  
+  //Interaction for the Interface.
 }
