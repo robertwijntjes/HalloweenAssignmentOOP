@@ -1,11 +1,9 @@
 # HalloweenAssignmentOOP
-This is my first OOP Assignment and it includes a basic graph using data inputted using a .CSV file and using visualisation
-to effectively display the information
+  	Discription: This assignment has the following types of graphs. 
+                1. Pie Chart   
+                2. Stair Pie Chart  
+                3. Plot Graph. 
+                These Graphs are used to illustrate the information in which i collected.This data involves the average ratings of games within a genre.
 
-The DataSet:
--Game Ratings set to 10 per 5.
--50 elements of information.
-
-Visualisation:
--PieChart
--StairGraph
+	The .CSV file in which was submitted has 2 columns and 49 rows of data related to game's ratings across different genre's.
+	This data will enter the Class gameRatings and will be sorted there into its corrosponding sets.
